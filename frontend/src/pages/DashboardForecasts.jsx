@@ -103,8 +103,8 @@ const DashboardForecasts = ({ currentLocation }) => {
                       <p className="text-2xl font-bold text-white">{hour.aqi}</p>
                       <p className="text-xs text-white/50">{hour.category}</p>
                     </div>
-                    <p className="text-sm text-white/70">{hour.temperature}°C</p>
-                    <p className="text-xs text-white/50">{hour.weather}</p>
+                    <p className="text-sm text-white/70">{hour.dominantPollutant}</p>
+                    <p className="text-xs text-white/50">{((hour.confidence || 0.9) * 100).toFixed(0)}% confidence</p>
                   </div>
                 ))}
               </div>
