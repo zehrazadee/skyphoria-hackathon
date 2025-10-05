@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { Bell, AlertTriangle, Check, X } from 'lucide-react'
-import { useSettingsStore, settingsStore } from '../store/locationStore'
+import { useSettingsStore } from '../store/useStore'
+import { showToast } from '../components/ui/Toast'
 
 const DashboardAlerts = () => {
   const [activeAlerts] = useState([
@@ -17,10 +18,11 @@ const DashboardAlerts = () => {
     },
   ])
 
-  const alertThreshold = useSettingsStore(state => state.alertThreshold)
+  const { alertThreshold, setAlertThreshold } = useSettingsStore()
 
   const handleThresholdChange = (value) => {
-    settingsStore.setState({ alertThreshold: parseInt(value) })
+    setAlertThreshold(parseInt(value))
+    showToast.success('Alert threshold updated')
   }
 
   return (
