@@ -1,6 +1,40 @@
 import { format, formatDistanceToNow, parseISO } from 'date-fns'
 import { getAQICategory } from './constants'
 
+// Unit conversion helpers
+export const convertTemperature = (celsius, toUnit = 'metric') => {
+  if (toUnit === 'imperial') {
+    return Math.round((celsius * 9/5) + 32)
+  }
+  return Math.round(celsius)
+}
+
+export const convertSpeed = (kmh, toUnit = 'metric') => {
+  if (toUnit === 'imperial') {
+    return Math.round(kmh * 0.621371) // km/h to mph
+  }
+  return Math.round(kmh)
+}
+
+export const convertDistance = (km, toUnit = 'metric') => {
+  if (toUnit === 'imperial') {
+    return (km * 0.621371).toFixed(1) // km to miles
+  }
+  return km.toFixed(1)
+}
+
+export const getTemperatureUnit = (units = 'metric') => {
+  return units === 'imperial' ? '°F' : '°C'
+}
+
+export const getSpeedUnit = (units = 'metric') => {
+  return units === 'imperial' ? 'mph' : 'km/h'
+}
+
+export const getDistanceUnit = (units = 'metric') => {
+  return units === 'imperial' ? 'mi' : 'km'
+}
+
 // Format timestamp
 export const formatTime = (timestamp, formatStr = 'h:mm a') => {
   try {
