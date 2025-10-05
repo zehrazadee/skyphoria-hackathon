@@ -124,30 +124,40 @@ const DashboardSettings = () => {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-white mb-3">Units</label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               <button
                 onClick={() => updateSetting('units', 'metric')}
-                className={`p-4 rounded-lg border-2 transition-all ${
-                  settings.units === 'metric'
-                    ? 'border-bright-cyan bg-bright-cyan/10'
-                    : 'border-white/10 bg-white/5 hover:bg-white/10'
+                className={`relative p-6 rounded-xl border-2 transition-all ${
+                  units === 'metric'
+                    ? 'border-bright-cyan bg-bright-cyan/10 shadow-lg shadow-bright-cyan/20'
+                    : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
-                <Thermometer className="w-6 h-6 text-white mx-auto mb-2" />
-                <p className="text-sm font-semibold text-white">Metric</p>
-                <p className="text-xs text-white/50">°C, km, kg</p>
+                {units === 'metric' && (
+                  <div className="absolute top-3 right-3">
+                    <Check className="w-5 h-5 text-bright-cyan" />
+                  </div>
+                )}
+                <Thermometer className={`w-8 h-8 mx-auto mb-3 ${units === 'metric' ? 'text-bright-cyan' : 'text-white/70'}`} />
+                <p className="text-base font-bold text-white mb-1">Metric</p>
+                <p className="text-xs text-white/60">°C, km, kg</p>
               </button>
               <button
                 onClick={() => updateSetting('units', 'imperial')}
-                className={`p-4 rounded-lg border-2 transition-all ${
-                  settings.units === 'imperial'
-                    ? 'border-bright-cyan bg-bright-cyan/10'
-                    : 'border-white/10 bg-white/5 hover:bg-white/10'
+                className={`relative p-6 rounded-xl border-2 transition-all ${
+                  units === 'imperial'
+                    ? 'border-bright-cyan bg-bright-cyan/10 shadow-lg shadow-bright-cyan/20'
+                    : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
-                <Thermometer className="w-6 h-6 text-white mx-auto mb-2" />
-                <p className="text-sm font-semibold text-white">Imperial</p>
-                <p className="text-xs text-white/50">°F, mi, lb</p>
+                {units === 'imperial' && (
+                  <div className="absolute top-3 right-3">
+                    <Check className="w-5 h-5 text-bright-cyan" />
+                  </div>
+                )}
+                <Thermometer className={`w-8 h-8 mx-auto mb-3 ${units === 'imperial' ? 'text-bright-cyan' : 'text-white/70'}`} />
+                <p className="text-base font-bold text-white mb-1">Imperial</p>
+                <p className="text-xs text-white/60">°F, mi, lb</p>
               </button>
             </div>
           </div>
