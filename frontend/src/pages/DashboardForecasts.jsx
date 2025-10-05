@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useForecast } from '../hooks/useAirQuality'
-import Card from '../ui/Card'
-import AQIBadge from '../ui/AQIBadge'
-import Loading from '../ui/Loading'
-import { formatDate, formatTime } from '../../utils/helpers'
+import Card from '../components/ui/Card'
+import AQIBadge from '../components/ui/AQIBadge'
+import Loading from '../components/ui/Loading'
+import { formatDate, formatTime } from '../utils/helpers'
 import { Calendar, Cloud, TrendingUp } from 'lucide-react'
 
 const DashboardForecasts = ({ currentLocation }) => {
