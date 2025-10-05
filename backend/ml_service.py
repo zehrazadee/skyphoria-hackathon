@@ -126,8 +126,11 @@ def fetch_openmeteo_aq_forecast(hours_ahead, lat, lon):
     h["time"] = pd.to_datetime(h["time"], utc=True)
     return h.set_index("time").sort_index()
 
-# Feature engineering
+# Feature engineering (only used when ML models are loaded)
 def make_hourly_features(df_pollutant, met):
+    if not ML_LIBS_AVAILABLE or not MODELS_LOADED:
+        return None
+    
     df = met.copy()
     df = df.join(df_pollutant, how="left")
     
