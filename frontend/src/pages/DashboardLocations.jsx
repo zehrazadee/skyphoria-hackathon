@@ -3,8 +3,9 @@ import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import AQIBadge from '../components/ui/AQIBadge'
 import { MapPin, Plus, Trash2, Star } from 'lucide-react'
-import { useLocationStore, locationStore } from '../store/locationStore'
+import { useLocationStore } from '../store/useStore'
 import { useCurrentAirQuality } from '../hooks/useAirQuality'
+import { showToast } from '../components/ui/Toast'
 
 const LocationCard = ({ location, onSelect, onRemove, isActive }) => {
   const { data } = useCurrentAirQuality(location.lat, location.lon)
