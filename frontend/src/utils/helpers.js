@@ -72,9 +72,9 @@ export const getHealthRecommendation = (aqi) => {
 // Get trend icon and text
 export const getTrendInfo = (trend) => {
   const trends = {
-    increasing: { icon: 'trending-up', color: 'text-red-400', text: 'Worsening' },
-    decreasing: { icon: 'trending-down', color: 'text-green-400', text: 'Improving' },
-    stable: { icon: 'minus', color: 'text-gray-400', text: 'Stable' }
+    increasing: { icon: 'TrendingUp', color: 'text-red-400', text: 'Worsening' },
+    decreasing: { icon: 'TrendingDown', color: 'text-green-400', text: 'Improving' },
+    stable: { icon: 'Minus', color: 'text-gray-400', text: 'Stable' }
   }
   return trends[trend] || trends.stable
 }
