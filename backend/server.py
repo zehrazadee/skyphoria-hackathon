@@ -189,6 +189,40 @@ async def get_forecast(
         "ml_powered": True
     }
 
+@app.get("/api/historical")
+async def get_historical(
+    lat: float = Query(...),
+    lon: float = Query(...),
+    hours: int = Query(48)
+):
+    """Get historical air quality data"""
+    from datetime import datetime, timedelta, timezone
+    import random
+    
+    # Generate mock historical data
+    data = []
+    now = datetime.now(timezone.utc)
+    
+    for i in range(hours):
+        timestamp = now - timedelta(hours=hours - i)
+        aqi = random.randint(40, 120)
+        category = get_aqi_category(aqi)
+        
+        data.append({
+            "timestamp": timestamp.isoformat(),
+            "aqi": aqi,
+            "category": category["name"],
+            "categoryColor": category["color"],
+            "pm25": round(random.uniform(5, 35), 1),
+            "o3": round(random.uniform(20, 80), 1),
+            "no2": round(random.uniform(10, 60), 1)
+        })
+    
+    return {
+        "location": {"lat": lat, "lon": lon},
+        "data": data
+    }
+
 @app.get("/api/sensors")
 async def get_sensors(
     lat: float = Query(...),
