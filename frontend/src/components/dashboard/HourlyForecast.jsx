@@ -19,18 +19,20 @@ const HourlyForecast = ({ data, isLoading }) => {
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
-      const category = getAQICategory(payload[0].value)
+      const category = getAQICategory(payload[0]?.value || 0)
       return (
         <div className="glass-card p-3 border border-white/20">
           <p className="text-sm font-semibold text-white mb-1">
-            {payload[0].payload.time}
+            {payload[0]?.payload?.time || ''}
           </p>
           <p className="text-xs mb-1" style={{ color: category.color }}>
-            AQI: {payload[0].value}
+            AQI: {payload[0]?.value || 0}
           </p>
-          <p className="text-xs text-white/70">
-            {payload[1].value}°C
-          </p>
+          {payload[1]?.value && (
+            <p className="text-xs text-white/70">
+              {payload[1].value}°C
+            </p>
+          )}
         </div>
       )
     }
