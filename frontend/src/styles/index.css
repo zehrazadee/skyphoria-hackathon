@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-deep-space text-white font-sans;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-bright-cyan to-electric-blue bg-clip-text text-transparent;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-bright-cyan to-electric-blue text-white font-semibold px-6 py-3 rounded-lg hover:shadow-lg hover:shadow-bright-cyan/50 transition-all duration-300 hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-bright-cyan text-bright-cyan font-semibold px-6 py-3 rounded-lg hover:bg-bright-cyan hover:text-deep-space transition-all duration-300;
+  }
+  
+  .aqi-badge {
+    @apply px-4 py-2 rounded-full font-bold text-sm;
+  }
+}
+
+@layer utilities {
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+}
+
+/* Leaflet Map Styles */
+.leaflet-container {
+  @apply bg-deep-space;
+}
+
+.leaflet-popup-content-wrapper {
+  @apply bg-celestial/95 backdrop-blur-md text-white rounded-lg border border-white/10;
+}
+
+.leaflet-popup-tip {
+  @apply bg-celestial/95;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-deep-space;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-bright-cyan/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-bright-cyan/50;
+}
