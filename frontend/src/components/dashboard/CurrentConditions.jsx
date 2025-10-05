@@ -3,15 +3,23 @@ import { Wind, Droplets, Eye, Thermometer } from 'lucide-react'
 import Card from '../ui/Card'
 import AQIBadge from '../ui/AQIBadge'
 import { getAQICategory } from '../../utils/constants'
-import { getHealthRecommendation } from '../../utils/helpers'
+import { getHealthRecommendation, convertTemperature, convertSpeed, convertDistance, getTemperatureUnit, getSpeedUnit, getDistanceUnit } from '../../utils/helpers'
+import { useSettingsStore } from '../../store/useStore'
 import Loading from '../ui/Loading'
 
 const CurrentConditions = ({ data, isLoading }) => {
+  const { units } = useSettingsStore()
+  
   if (isLoading) return <Loading message="Loading current conditions..." />
   if (!data) return null
 
   const category = getAQICategory(data.aqi)
   const health = getHealthRecommendation(data.aqi)
+  
+  // Convert units
+  const temperature = convertTemperature(data.weather.temperature, units)
+  const windSpeed = convertSpeed(data.weather.windSpeed, units)
+  const visibility = convertDistance(data.weather.visibility, units)
 
   return (
     <Card className="lg:col-span-2">
