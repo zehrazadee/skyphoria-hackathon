@@ -52,8 +52,8 @@ const DashboardSettings = () => {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Settings</h1>
-        <p className="text-white/60">Customize your Skyphoria experience</p>
+        <h1 className="text-3xl font-bold text-white mb-2">{t('Settings')}</h1>
+        <p className="text-white/60">{t('Customize your Skyphoria experience')}</p>
       </div>
 
       {/* Appearance */}
