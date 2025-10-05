@@ -18,6 +18,29 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'router': ['react-router-dom'],
+          'query': ['@tanstack/react-query'],
+          'charts': ['recharts'],
+          'map': ['leaflet', 'react-leaflet'],
+          'ui': ['lucide-react', 'clsx', 'date-fns'],
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    }
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'leaflet', 'recharts']
   }
 })
