@@ -2,13 +2,20 @@ import React from 'react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { Moon, Sun, Globe, Thermometer, Bell } from 'lucide-react'
-import { useSettingsStore, settingsStore } from '../store/locationStore'
+import { useSettingsStore } from '../store/useStore'
+import { showToast } from '../components/ui/Toast'
 
 const DashboardSettings = () => {
-  const settings = useSettingsStore(state => state)
+  const settings = useSettingsStore()
+  const { setTheme, setUnits, setLanguage, setNotifications } = useSettingsStore()
 
   const updateSetting = (key, value) => {
-    settingsStore.setState({ [key]: value })
+    if (key === 'theme') setTheme(value)
+    else if (key === 'units') setUnits(value)
+    else if (key === 'language') setLanguage(value)
+    else if (key === 'notifications') setNotifications(value)
+    
+    showToast.success('Settings updated successfully')
   }
 
   return (
