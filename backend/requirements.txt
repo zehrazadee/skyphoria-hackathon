@@ -72,8 +72,8 @@ rich==14.1.0
 rsa==4.9.1
 s3transfer==0.14.0
 s5cmd==0.2.0
-scikit-learn==1.7.2
-scipy==1.11.4
+# scikit-learn==1.7.2  # Commented for deployment (ML models optional)
+# scipy==1.11.4  # Commented for deployment (ML models optional)
 shellingham==1.5.4
 six==1.17.0
 sniffio==1.3.1
