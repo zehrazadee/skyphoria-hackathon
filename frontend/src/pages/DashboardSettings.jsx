@@ -63,8 +63,8 @@ const DashboardSettings = () => {
             {theme === 'dark' ? <Moon className="w-5 h-5 text-white" /> : <Sun className="w-5 h-5 text-white" />}
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">Appearance</h2>
-            <p className="text-sm text-white/60">Customize how Skyphoria looks</p>
+            <h2 className="text-xl font-bold text-white">{t('Appearance')}</h2>
+            <p className="text-sm text-white/60">{t('Customize how Skyphoria looks')}</p>
           </div>
         </div>
 
