@@ -16,7 +16,7 @@ const PollutantLevels = ({ data, isLoading }) => {
         {Object.entries(data.pollutants).map(([key, pollutant]) => {
           const info = POLLUTANTS[key]
           const trend = getTrendInfo(pollutant.trend)
-          const TrendIcon = Icons[trend.icon]
+          const TrendIcon = trend?.icon ? Icons[trend.icon] : null
           const percentage = (pollutant.aqi / 500) * 100
 
           return (
@@ -30,9 +30,11 @@ const PollutantLevels = ({ data, isLoading }) => {
                   <span className="text-sm font-bold text-white">
                     {pollutant.value} {pollutant.unit}
                   </span>
-                  <div className={`flex items-center gap-1 ${trend.color}`}>
-                    <TrendIcon className="w-3 h-3" />
-                  </div>
+                  {TrendIcon && (
+                    <div className={`flex items-center gap-1 ${trend.color}`}>
+                      <TrendIcon className="w-3 h-3" />
+                    </div>
+                  )}
                 </div>
               </div>
               
