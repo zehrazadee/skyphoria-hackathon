@@ -16,24 +16,36 @@ OPEN_METEO_FC = "https://api.open-meteo.com/v1/forecast"
 AQ_API = "https://air-quality-api.open-meteo.com/v1/air-quality"
 UA_HEADERS = {"User-Agent": "skyphoria-aircast/1.0"}
 
-# Load ML models
-try:
-    with open("model_pm25.joblib", "rb") as f:
-        pm_bundle = load(io.BytesIO(f.read()))
-        pm_model = pm_bundle["model"]
-        pm_feats = pm_bundle["features"]
-    
-    with open("model_o3.joblib", "rb") as f:
-        o3_bundle = load(io.BytesIO(f.read()))
-        o3_model = o3_bundle["model"]
-        o3_feats = o3_bundle["features"]
-    
-    MODELS_LOADED = True
-except Exception as e:
-    print(f"Warning: Could not load ML models: {e}")
+# Load ML models (optional for deployment)
+import os
+
+# Check if running in production/deployment mode
+IS_DEPLOYMENT = os.getenv("EMERGENT_DEPLOYMENT", "false").lower() == "true"
+
+if IS_DEPLOYMENT:
+    print("Running in deployment mode - ML models disabled")
     MODELS_LOADED = False
     pm_model, o3_model = None, None
     pm_feats, o3_feats = [], []
+else:
+    try:
+        with open("model_pm25.joblib", "rb") as f:
+            pm_bundle = load(io.BytesIO(f.read()))
+            pm_model = pm_bundle["model"]
+            pm_feats = pm_bundle["features"]
+        
+        with open("model_o3.joblib", "rb") as f:
+            o3_bundle = load(io.BytesIO(f.read()))
+            o3_model = o3_bundle["model"]
+            o3_feats = o3_bundle["features"]
+        
+        MODELS_LOADED = True
+        print("ML models loaded successfully")
+    except Exception as e:
+        print(f"Warning: Could not load ML models: {e}")
+        MODELS_LOADED = False
+        pm_model, o3_model = None, None
+        pm_feats, o3_feats = [], []
 
 # HTTP helper
 def get_json(url, params=None, timeout=60):
