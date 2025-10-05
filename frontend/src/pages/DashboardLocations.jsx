@@ -165,7 +165,7 @@ const DashboardLocations = ({ currentLocation, onLocationChange }) => {
           <LocationCard
             key={location.id}
             location={location}
-            onSelect={onLocationChange}
+            onSelect={handleSelectLocation}
             onRemove={handleRemoveLocation}
             isActive={currentLocation?.id === location.id}
           />
