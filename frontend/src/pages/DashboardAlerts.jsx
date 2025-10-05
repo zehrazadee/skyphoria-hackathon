@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
-import { Bell, AlertTriangle, Check, X, Plus, TrendingUp } from 'lucide-react'
+import { Bell, AlertTriangle, Check, X, Plus, TrendingUp, CheckCircle } from 'lucide-react'
 import { useSettingsStore } from '../store/useStore'
 import { useCurrentAirQuality, useForecast } from '../hooks/useAirQuality'
 import { showToast } from '../components/ui/Toast'
