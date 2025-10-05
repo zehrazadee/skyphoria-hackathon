@@ -69,28 +69,40 @@ const DashboardSettings = () => {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-white mb-3">Theme</label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               <button
                 onClick={() => updateSetting('theme', 'dark')}
-                className={`p-4 rounded-lg border-2 transition-all ${
-                  settings.theme === 'dark'
-                    ? 'border-bright-cyan bg-bright-cyan/10'
-                    : 'border-white/10 bg-white/5 hover:bg-white/10'
+                className={`relative p-6 rounded-xl border-2 transition-all group ${
+                  theme === 'dark'
+                    ? 'border-bright-cyan bg-bright-cyan/10 shadow-lg shadow-bright-cyan/20'
+                    : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
-                <Moon className="w-6 h-6 text-white mx-auto mb-2" />
-                <p className="text-sm font-semibold text-white">Dark</p>
+                {theme === 'dark' && (
+                  <div className="absolute top-3 right-3">
+                    <Check className="w-5 h-5 text-bright-cyan" />
+                  </div>
+                )}
+                <Moon className={`w-8 h-8 mx-auto mb-3 ${theme === 'dark' ? 'text-bright-cyan' : 'text-white/70'}`} />
+                <p className="text-base font-bold text-white mb-1">Dark</p>
+                <p className="text-xs text-white/60">Better for low light</p>
               </button>
               <button
                 onClick={() => updateSetting('theme', 'light')}
-                className={`p-4 rounded-lg border-2 transition-all ${
-                  settings.theme === 'light'
-                    ? 'border-bright-cyan bg-bright-cyan/10'
-                    : 'border-white/10 bg-white/5 hover:bg-white/10'
+                className={`relative p-6 rounded-xl border-2 transition-all group ${
+                  theme === 'light'
+                    ? 'border-bright-cyan bg-bright-cyan/10 shadow-lg shadow-bright-cyan/20'
+                    : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
-                <Sun className="w-6 h-6 text-white mx-auto mb-2" />
-                <p className="text-sm font-semibold text-white">Light</p>
+                {theme === 'light' && (
+                  <div className="absolute top-3 right-3">
+                    <Check className="w-5 h-5 text-bright-cyan" />
+                  </div>
+                )}
+                <Sun className={`w-8 h-8 mx-auto mb-3 ${theme === 'light' ? 'text-bright-cyan' : 'text-white/70'}`} />
+                <p className="text-base font-bold text-white mb-1">Light</p>
+                <p className="text-xs text-white/60">Coming soon...</p>
               </button>
             </div>
           </div>
