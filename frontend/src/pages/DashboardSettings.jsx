@@ -163,15 +163,26 @@ const DashboardSettings = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-white mb-2">Language</label>
+            <label className="block text-sm font-semibold text-white mb-3">Language</label>
             <select 
-              value={settings.language}
+              value={language}
               onChange={(e) => updateSetting('language', e.target.value)}
-              className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-bright-cyan"
+              className="w-full px-4 py-3 bg-white/5 border-2 border-white/10 rounded-lg text-white focus:outline-none focus:border-bright-cyan transition-colors cursor-pointer hover:bg-white/10"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                backgroundPosition: 'right 0.5rem center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '1.5em 1.5em',
+                paddingRight: '2.5rem',
+                appearance: 'none'
+              }}
             >
-              <option value="en">English</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
+              <option value="en" className="bg-celestial text-white">🇺🇸 English</option>
+              <option value="es" className="bg-celestial text-white">🇪🇸 Español</option>
+              <option value="fr" className="bg-celestial text-white">🇫🇷 Français</option>
+              <option value="de" className="bg-celestial text-white">🇩🇪 Deutsch</option>
+              <option value="zh" className="bg-celestial text-white">🇨🇳 中文</option>
+              <option value="ja" className="bg-celestial text-white">🇯🇵 日本語</option>
             </select>
           </div>
         </div>
