@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Sidebar from '../components/layout/Sidebar'
 import TopBar from '../components/layout/TopBar'
 import DashboardOverview from './DashboardOverview'
@@ -7,13 +7,23 @@ import DashboardForecasts from './DashboardForecasts'
 import DashboardLocations from './DashboardLocations'
 import DashboardAlerts from './DashboardAlerts'
 import DashboardSettings from './DashboardSettings'
-import { DEFAULT_LOCATIONS } from '../utils/constants'
+import { useLocationStore, useUIStore } from '../store/useStore'
 import clsx from 'clsx'
 
 const Dashboard = ({ onNavigateToLanding }) => {
   const [currentPage, setCurrentPage] = useState('overview')
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-  const [currentLocation, setCurrentLocation] = useState(DEFAULT_LOCATIONS[0])
+  
+  // Use Zustand stores
+  const { savedLocations, currentLocation, setCurrentLocation } = useLocationStore()
+  const { sidebarCollapsed, toggleSidebar } = useUIStore()
+  
+  // Set initial location if not set
+  useEffect(() => {
+    if (!currentLocation && savedLocations.length > 0) {
+      const primary = savedLocations.find(loc => loc.isPrimary) || savedLocations[0]
+      setCurrentLocation(primary)
+    }
+  }, [currentLocation, savedLocations, setCurrentLocation])
 
   const renderPage = () => {
     const props = { currentLocation, onLocationChange: setCurrentLocation }
