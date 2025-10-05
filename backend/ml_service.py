@@ -166,8 +166,8 @@ def aqi_from_pm25(pm):
         (250.5, 350.4, 301, 400),
         (350.5, 500.4, 401, 500),
     ]
-    if pd.isna(pm):
-        return np.nan
+    if pd.isna(pm) or pm is None:
+        return float('nan')
     for c_low, c_high, a_low, a_high in brks:
         if c_low <= pm <= c_high:
             return (a_high - a_low) / (c_high - c_low) * (pm - c_low) + a_low
@@ -175,8 +175,8 @@ def aqi_from_pm25(pm):
 
 def aqi_from_o3(o3_ppb):
     brks = [(0, 54, 0, 50), (55, 70, 51, 100), (71, 85, 101, 150), (86, 105, 151, 200), (106, 200, 201, 300)]
-    if pd.isna(o3_ppb):
-        return np.nan
+    if pd.isna(o3_ppb) or o3_ppb is None:
+        return float('nan')
     for c_low, c_high, a_low, a_high in brks:
         if c_low <= o3_ppb <= c_high:
             return (a_high - a_low) / (c_high - c_low) * (o3_ppb - c_low) + a_low
@@ -184,8 +184,8 @@ def aqi_from_o3(o3_ppb):
 
 def aqi_from_no2_ppb(no2_ppb):
     brks = [(0, 53, 0, 50), (54, 100, 51, 100), (101, 360, 101, 150), (361, 649, 151, 200), (650, 1249, 201, 300), (1250, 2049, 301, 400)]
-    if pd.isna(no2_ppb):
-        return np.nan
+    if pd.isna(no2_ppb) or no2_ppb is None:
+        return float('nan')
     for c_low, c_high, a_low, a_high in brks:
         if c_low <= no2_ppb <= c_high:
             return (a_high - a_low) / (c_high - c_low) * (no2_ppb - c_low) + a_low
