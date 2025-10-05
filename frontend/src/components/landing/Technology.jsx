@@ -1,5 +1,5 @@
 import React from 'react'
-import { Database, Cloud, Cpu, Globe } from 'lucide-react'
+import { Database, Cloud, Cpu, Globe, Satellite } from 'lucide-react'
 import Card from '../ui/Card'
 
 const Technology = () => {
