@@ -62,14 +62,14 @@ const CurrentConditions = ({ data, isLoading }) => {
             <Thermometer className="w-4 h-4 text-bright-cyan" />
             <span className="text-xs text-white/60">Temperature</span>
           </div>
-          <p className="text-lg font-bold">{data.weather.temperature}°C</p>
+          <p className="text-lg font-bold">{temperature}{getTemperatureUnit(units)}</p>
         </div>
         <div className="glass-card p-3">
           <div className="flex items-center gap-2 mb-1">
             <Wind className="w-4 h-4 text-bright-cyan" />
             <span className="text-xs text-white/60">Wind</span>
           </div>
-          <p className="text-lg font-bold">{data.weather.windSpeed} km/h</p>
+          <p className="text-lg font-bold">{windSpeed} {getSpeedUnit(units)}</p>
           <p className="text-xs text-white/50">{data.weather.windDirectionText}</p>
         </div>
         <div className="glass-card p-3">
@@ -84,7 +84,7 @@ const CurrentConditions = ({ data, isLoading }) => {
             <Eye className="w-4 h-4 text-bright-cyan" />
             <span className="text-xs text-white/60">Visibility</span>
           </div>
-          <p className="text-lg font-bold">{data.weather.visibility} km</p>
+          <p className="text-lg font-bold">{visibility} {getDistanceUnit(units)}</p>
         </div>
       </div>
 
