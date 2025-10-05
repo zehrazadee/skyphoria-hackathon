@@ -38,7 +38,7 @@ import hashlib
 
 @lru_cache(maxsize=1000)
 def get_cached_aqi(lat_lon_key, hour_offset):
-    \"\"\"Cached AQI calculation for better performance\"\"\"
+    """Cached AQI calculation for better performance"""
     lat, lon = lat_lon_key
     return generate_mock_aqi(lat, lon, hour_offset)
 
