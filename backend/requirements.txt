@@ -29,9 +29,9 @@ idna==3.10
 iniconfig==2.1.0
 isort==6.0.1
 jmespath==1.0.1
-joblib==1.5.2
+# joblib==1.5.2  # Commented for deployment (ML models optional)
 jq==1.10.0
-lightgbm==4.6.0
+# lightgbm==4.6.0  # Commented for deployment (ML models optional)
 markdown-it-py==4.0.0
 mccabe==0.7.0
 mdurl==0.1.2
