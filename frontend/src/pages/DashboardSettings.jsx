@@ -1,21 +1,49 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
-import { Moon, Sun, Globe, Thermometer, Bell } from 'lucide-react'
+import { Moon, Sun, Globe, Thermometer, Bell, Check, Volume2, Info } from 'lucide-react'
 import { useSettingsStore } from '../store/useStore'
 import { showToast } from '../components/ui/Toast'
 
 const DashboardSettings = () => {
-  const settings = useSettingsStore()
-  const { setTheme, setUnits, setLanguage, setNotifications } = useSettingsStore()
+  const { theme, units, language, notifications, setTheme, setUnits, setLanguage, setNotifications } = useSettingsStore()
+
+  // Apply theme to document root
+  useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.classList.add('light-theme')
+      document.documentElement.classList.remove('dark-theme')
+    } else {
+      document.documentElement.classList.add('dark-theme')
+      document.documentElement.classList.remove('light-theme')
+    }
+  }, [theme])
 
   const updateSetting = (key, value) => {
-    if (key === 'theme') setTheme(value)
-    else if (key === 'units') setUnits(value)
-    else if (key === 'language') setLanguage(value)
-    else if (key === 'notifications') setNotifications(value)
-    
-    showToast.success('Settings updated successfully')
+    if (key === 'theme') {
+      setTheme(value)
+      showToast.success(`Theme changed to ${value}`)
+    }
+    else if (key === 'units') {
+      setUnits(value)
+      showToast.success(`Units changed to ${value}`)
+    }
+    else if (key === 'language') {
+      setLanguage(value)
+      showToast.success(`Language changed to ${value}`)
+    }
+    else if (key === 'notifications') {
+      setNotifications(value)
+      showToast.success('Notification preferences updated')
+    }
+  }
+
+  const toggleNotification = (key) => {
+    const newNotifications = {
+      ...notifications,
+      [key]: !notifications[key]
+    }
+    updateSetting('notifications', newNotifications)
   }
 
   return (
