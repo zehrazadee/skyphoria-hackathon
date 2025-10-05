@@ -5,8 +5,12 @@ import PollutantLevels from '../components/dashboard/PollutantLevels'
 import HourlyForecast from '../components/dashboard/HourlyForecast'
 import Card from '../components/ui/Card'
 import { AlertTriangle, Cloud, Wind } from 'lucide-react'
+import { useSettingsStore } from '../store/useStore'
+import { useTranslation } from '../utils/translations'
 
 const DashboardOverview = ({ currentLocation }) => {
+  const { language } = useSettingsStore()
+  const { t } = useTranslation(language)
   const { data: currentData, isLoading: currentLoading } = useCurrentAirQuality(
     currentLocation?.lat,
     currentLocation?.lon,
