@@ -37,8 +37,6 @@ const Dashboard = ({ onNavigateToLanding }) => {
         return <DashboardForecasts {...props} />
       case 'locations':
         return <DashboardLocations {...props} />
-      case 'alerts':
-        return <DashboardAlerts {...props} />
       case 'settings':
         return <DashboardSettings {...props} />
       default:
