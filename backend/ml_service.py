@@ -1,11 +1,20 @@
 import io
 import math
-import numpy as np
 import pandas as pd
 import requests as rq
 from datetime import datetime, timedelta, timezone
-from joblib import load
 from typing import Dict, Optional
+import os
+
+# Optional ML dependencies (only needed when models are enabled)
+try:
+    import numpy as np
+    from joblib import load
+    ML_LIBS_AVAILABLE = True
+except ImportError:
+    ML_LIBS_AVAILABLE = False
+    np = None
+    load = None
 
 # Constants
 O3_UGM3_TO_PPB = 0.509
