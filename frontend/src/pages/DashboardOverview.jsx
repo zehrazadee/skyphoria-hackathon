@@ -33,8 +33,8 @@ const DashboardOverview = ({ currentLocation }) => {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Air Quality Overview</h1>
-        <p className="text-white/60">Real-time conditions and forecasts for your location</p>
+        <h1 className="text-3xl font-bold text-white mb-2">{t('Air Quality Overview')}</h1>
+        <p className="text-white/60">{t('Real-time conditions and forecasts for your location')}</p>
       </div>
 
       {/* Main Grid */}
