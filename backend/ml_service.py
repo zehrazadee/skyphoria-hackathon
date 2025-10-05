@@ -259,20 +259,31 @@ def get_air_quality_prediction(lat: float, lon: float, hours: int = 72, hist_hou
         return {"error": str(e), "success": False}
 
 def get_current_conditions(lat: float, lon: float):
-    """Get current air quality using CAMS data"""
+    """Get current air quality and weather using CAMS and Open-Meteo data"""
     try:
-        params = {
+        # Fetch air quality data
+        aq_params = {
             "latitude": lat,
             "longitude": lon,
             "current": "pm2_5,pm10,ozone,nitrogen_dioxide,sulphur_dioxide,carbon_monoxide",
             "timezone": "UTC"
         }
-        js = get_json(AQ_API, params)
+        aq_js = get_json(AQ_API, aq_params)
         
-        if "current" not in js:
+        # Fetch weather data
+        weather_params = {
+            "latitude": lat,
+            "longitude": lon,
+            "current": "temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m,visibility",
+            "timezone": "UTC"
+        }
+        weather_js = get_json(OPEN_METEO_FC, weather_params)
+        
+        if "current" not in aq_js:
             return None
         
-        current = js["current"]
+        current = aq_js["current"]
+        weather = weather_js.get("current", {})
         
         # Calculate AQI from each pollutant
         pm25_aqi = aqi_from_pm25(current.get("pm2_5", 0))
@@ -290,6 +301,11 @@ def get_current_conditions(lat: float, lon: float):
         elif no2_aqi > pm25_aqi and no2_aqi > o3_aqi:
             dominant = "NO2"
         
+        # Get wind direction text
+        wind_deg = weather.get("wind_direction_10m", 0)
+        directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
+        wind_dir_text = directions[int((wind_deg % 360) / 22.5)]
+        
         return {
             "aqi": int(overall_aqi),
             "dominant_pollutant": dominant,
@@ -299,7 +315,15 @@ def get_current_conditions(lat: float, lon: float):
             "no2": no2_ppb,
             "so2": current.get("sulphur_dioxide", 0),
             "co": current.get("carbon_monoxide", 0),
-            "timestamp": current.get("time", datetime.now(timezone.utc).isoformat())
+            "timestamp": current.get("time", datetime.now(timezone.utc).isoformat()),
+            "weather": {
+                "temperature": round(weather.get("temperature_2m", 20), 1),
+                "windSpeed": round(weather.get("wind_speed_10m", 0), 1),
+                "windDirection": round(weather.get("wind_direction_10m", 0), 0),
+                "windDirectionText": wind_dir_text,
+                "humidity": round(weather.get("relative_humidity_2m", 50), 0),
+                "visibility": round(weather.get("visibility", 10000) / 1000, 1)
+            }
         }
     except Exception as e:
         print(f"Error fetching current conditions: {e}")
