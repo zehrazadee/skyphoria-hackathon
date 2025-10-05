@@ -69,27 +69,30 @@ const DashboardLocations = ({ currentLocation, onLocationChange }) => {
   const [showAddForm, setShowAddForm] = useState(false)
   const [newLocation, setNewLocation] = useState({ name: '', lat: '', lon: '' })
   
-  const savedLocations = useLocationStore(state => state.savedLocations)
+  const { savedLocations, addLocation, removeLocation, setCurrentLocation } = useLocationStore()
 
   const handleAddLocation = () => {
     if (newLocation.name && newLocation.lat && newLocation.lon) {
-      const locations = [...savedLocations, {
-        id: `loc_${Date.now()}`,
+      const added = addLocation({
         name: newLocation.name,
         customName: newLocation.name,
         lat: parseFloat(newLocation.lat),
         lon: parseFloat(newLocation.lon),
-        isPrimary: false,
-      }]
-      locationStore.setState({ savedLocations: locations })
+      })
       setNewLocation({ name: '', lat: '', lon: '' })
       setShowAddForm(false)
+      showToast.success(`${added.name} added successfully!`)
     }
   }
 
   const handleRemoveLocation = (id) => {
-    const locations = savedLocations.filter(loc => loc.id !== id)
-    locationStore.setState({ savedLocations: locations })
+    removeLocation(id)
+    showToast.success('Location removed')
+  }
+  
+  const handleSelectLocation = (location) => {
+    setCurrentLocation(location)
+    if (onLocationChange) onLocationChange(location)
   }
 
   return (
