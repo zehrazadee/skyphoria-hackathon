@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  /* Dark Theme (Default) */
   body {
     @apply bg-deep-space text-white font-sans;
     font-feature-settings: 'rlig' 1, 'calt' 1;
@@ -10,6 +11,54 @@
   
   html {
     @apply scroll-smooth;
+  }
+
+  /* Light Theme */
+  .light-theme body {
+    @apply bg-white text-gray-900;
+  }
+
+  .light-theme .glass-card {
+    @apply bg-gray-100/80 border-gray-300;
+  }
+
+  .light-theme h1,
+  .light-theme h2,
+  .light-theme h3,
+  .light-theme .text-white {
+    @apply text-gray-900;
+  }
+
+  .light-theme .text-white\/60 {
+    @apply text-gray-600;
+  }
+
+  .light-theme .text-white\/50 {
+    @apply text-gray-500;
+  }
+
+  .light-theme .text-white\/70 {
+    @apply text-gray-700;
+  }
+
+  .light-theme .bg-celestial {
+    @apply bg-gray-50;
+  }
+
+  .light-theme .bg-deep-space {
+    @apply bg-white;
+  }
+
+  .light-theme .border-white\/10 {
+    @apply border-gray-300;
+  }
+
+  .light-theme .bg-white\/5 {
+    @apply bg-gray-100;
+  }
+
+  .light-theme .bg-white\/10 {
+    @apply bg-gray-200;
   }
 }
 
