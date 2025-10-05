@@ -15,7 +15,9 @@ load_dotenv()
 app = FastAPI(
     title="Skyphoria API",
     description="Air Quality Forecasting Platform - NASA Space Apps Challenge 2025",
-    version="1.0.0"
+    version="1.0.0",
+    docs_url="/api/docs",
+    redoc_url="/api/redoc"
 )
 
 # CORS Configuration
@@ -27,7 +29,18 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
+
+# Cache to improve performance
+from functools import lru_cache
+import hashlib
+
+@lru_cache(maxsize=1000)
+def get_cached_aqi(lat_lon_key, hour_offset):
+    \"\"\"Cached AQI calculation for better performance\"\"\"
+    lat, lon = lat_lon_key
+    return generate_mock_aqi(lat, lon, hour_offset)
 
 # Pydantic Models
 class Location(BaseModel):
