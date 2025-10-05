@@ -7,7 +7,8 @@ import {
   Bell, 
   Settings,
   ChevronLeft,
-  LogOut
+  LogOut,
+  Brain
 } from 'lucide-react'
 import clsx from 'clsx'
 
@@ -17,6 +18,8 @@ const Sidebar = ({ currentPage, onPageChange, onNavigateToLanding, isCollapsed, 
     { id: 'map', label: 'Live Map', icon: MapIcon },
     { id: 'forecasts', label: 'Forecasts', icon: CloudRain },
     { id: 'locations', label: 'My Locations', icon: MapPin },
+    { id: 'alerts', label: 'Smart Alerts', icon: Bell },
+    { id: 'ml-insights', label: 'AI Insights', icon: Brain },
     { id: 'settings', label: 'Settings', icon: Settings },
   ]
 
