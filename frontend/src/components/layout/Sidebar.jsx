@@ -17,7 +17,6 @@ const Sidebar = ({ currentPage, onPageChange, onNavigateToLanding, isCollapsed, 
     { id: 'map', label: 'Live Map', icon: MapIcon },
     { id: 'forecasts', label: 'Forecasts', icon: CloudRain },
     { id: 'locations', label: 'My Locations', icon: MapPin },
-    { id: 'alerts', label: 'Alerts', icon: Bell },
     { id: 'settings', label: 'Settings', icon: Settings },
   ]
 
