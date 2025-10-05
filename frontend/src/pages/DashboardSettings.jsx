@@ -58,7 +58,7 @@ const DashboardSettings = () => {
       <Card>
         <div className="flex items-center gap-3 mb-6">
           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-bright-cyan to-electric-blue flex items-center justify-center">
-            {settings.theme === 'dark' ? <Moon className="w-5 h-5 text-white" /> : <Sun className="w-5 h-5 text-white" />}
+            {theme === 'dark' ? <Moon className="w-5 h-5 text-white" /> : <Sun className="w-5 h-5 text-white" />}
           </div>
           <div>
             <h2 className="text-xl font-bold text-white">Appearance</h2>
