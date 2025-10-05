@@ -25,14 +25,12 @@ OPEN_METEO_FC = "https://api.open-meteo.com/v1/forecast"
 AQ_API = "https://air-quality-api.open-meteo.com/v1/air-quality"
 UA_HEADERS = {"User-Agent": "skyphoria-aircast/1.0"}
 
-# Load ML models (optional for deployment)
-import os
-
 # Check if running in production/deployment mode
 IS_DEPLOYMENT = os.getenv("EMERGENT_DEPLOYMENT", "false").lower() == "true"
 
-if IS_DEPLOYMENT:
-    print("Running in deployment mode - ML models disabled")
+# Load ML models (optional for deployment)
+if IS_DEPLOYMENT or not ML_LIBS_AVAILABLE:
+    print("Running in deployment mode or ML libs not available - using CAMS forecast only")
     MODELS_LOADED = False
     pm_model, o3_model = None, None
     pm_feats, o3_feats = [], []
