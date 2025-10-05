@@ -54,7 +54,7 @@ const Dashboard = ({ onNavigateToLanding }) => {
         onPageChange={setCurrentPage}
         onNavigateToLanding={onNavigateToLanding}
         isCollapsed={sidebarCollapsed}
-        onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
+        onToggleCollapse={toggleSidebar}
       />
 
       {/* Main Content */}
