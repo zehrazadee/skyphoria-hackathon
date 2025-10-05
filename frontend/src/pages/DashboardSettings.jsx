@@ -169,26 +169,39 @@ const DashboardSettings = () => {
 
         <div className="space-y-3">
           {[
-            { key: 'push', label: 'Push Notifications', description: 'Receive alerts in your browser' },
-            { key: 'email', label: 'Email Notifications', description: 'Get updates via email' },
-            { key: 'sms', label: 'SMS Notifications', description: 'Text message alerts' },
-          ].map((notif) => (
-            <label key={notif.key} className="flex items-center justify-between glass-card p-4 cursor-pointer hover:bg-white/5">
-              <div>
-                <p className="font-semibold text-white">{notif.label}</p>
-                <p className="text-sm text-white/60">{notif.description}</p>
+            { key: 'push', label: 'Push Notifications', description: 'Receive alerts in your browser', icon: Bell },
+            { key: 'email', label: 'Email Notifications', description: 'Get updates via email', icon: Bell },
+            { key: 'sms', label: 'SMS Notifications', description: 'Text message alerts', icon: Volume2 },
+          ].map((notif) => {
+            const Icon = notif.icon
+            return (
+              <div key={notif.key} className="flex items-center justify-between glass-card p-4 hover:bg-white/5 transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                    notifications[notif.key] ? 'bg-bright-cyan/20' : 'bg-white/5'
+                  }`}>
+                    <Icon className={`w-5 h-5 ${notifications[notif.key] ? 'text-bright-cyan' : 'text-white/40'}`} />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">{notif.label}</p>
+                    <p className="text-sm text-white/60">{notif.description}</p>
+                  </div>
+                </div>
+                
+                {/* Custom Toggle Switch */}
+                <button
+                  onClick={() => toggleNotification(notif.key)}
+                  className={`relative w-14 h-7 rounded-full transition-colors ${
+                    notifications[notif.key] ? 'bg-bright-cyan' : 'bg-white/10'
+                  }`}
+                >
+                  <div className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white transition-transform ${
+                    notifications[notif.key] ? 'translate-x-7' : 'translate-x-0'
+                  }`} />
+                </button>
               </div>
-              <input
-                type="checkbox"
-                checked={settings.notifications[notif.key]}
-                onChange={(e) => updateSetting('notifications', {
-                  ...settings.notifications,
-                  [notif.key]: e.target.checked
-                })}
-                className="w-5 h-5 rounded border-white/20 bg-white/5 checked:bg-bright-cyan"
-              />
-            </label>
-          ))}
+            )
+          })}
         </div>
       </Card>
 
