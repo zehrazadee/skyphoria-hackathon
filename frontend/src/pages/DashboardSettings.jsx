@@ -70,7 +70,7 @@ const DashboardSettings = () => {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-semibold text-white mb-3">Theme</label>
+            <label className="block text-sm font-semibold text-white mb-3">{t('Theme')}</label>
             <div className="grid grid-cols-2 gap-4">
               <button
                 onClick={() => updateSetting('theme', 'dark')}
@@ -86,8 +86,8 @@ const DashboardSettings = () => {
                   </div>
                 )}
                 <Moon className={`w-8 h-8 mx-auto mb-3 ${theme === 'dark' ? 'text-bright-cyan' : 'text-white/70'}`} />
-                <p className="text-base font-bold text-white mb-1">Dark</p>
-                <p className="text-xs text-white/60">Better for low light</p>
+                <p className="text-base font-bold text-white mb-1">{t('Dark')}</p>
+                <p className="text-xs text-white/60">{t('Better for low light')}</p>
               </button>
               <button
                 onClick={() => updateSetting('theme', 'light')}
@@ -103,8 +103,8 @@ const DashboardSettings = () => {
                   </div>
                 )}
                 <Sun className={`w-8 h-8 mx-auto mb-3 ${theme === 'light' ? 'text-bright-cyan' : 'text-white/70'}`} />
-                <p className="text-base font-bold text-white mb-1">Light</p>
-                <p className="text-xs text-white/60">Coming soon...</p>
+                <p className="text-base font-bold text-white mb-1">{t('Light')}</p>
+                <p className="text-xs text-white/60">{t('Coming soon...')}</p>
               </button>
             </div>
           </div>
