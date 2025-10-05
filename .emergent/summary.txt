@@ -1,0 +1,62 @@
+<analysis>
+The AI engineer began by setting up the project from scratch, establishing a full-stack React (Vite, Tailwind) frontend and FastAPI backend. Initial efforts focused on boilerplate creation, dependency management, and configuring supervisor for service orchestration. The trajectory shows meticulous debugging of environment issues (e.g., Vite , yarn run v1.22.22
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command. script), backend Python syntax errors, and frontend CSS/import issues. A significant pivot occurred when the user introduced pre-trained LightGBM models (, ) and a Streamlit application (). The AI successfully extracted the ML logic, created new FastAPI endpoints (, ) in the backend to serve these models, and verified their functionality. Frontend integration began with a new  page and updates to existing components. A key user request was the initial removal of the 'Alerts' section, which was later reversed, instructing the AI to re-introduce it and complete the ML integration. The current state involves working ML backend APIs awaiting full frontend integration and the recreation of the 'Alerts' section.
+</analysis>
+
+<product_requirements>
+The goal is to build Skyphoria, an AI-powered air quality forecasting platform for the NASA Space Apps Challenge 2025. This includes a modern one-page marketing **Landing Page** and a sophisticated **Dashboard Application**.
+The **Landing Page** should be stunning, modern, and animated, featuring sections like Hero, Problem, Solution, Technology, Dashboard Preview, Target Audiences, CTA, and Footer, adhering to a dark theme with glassmorphism and vibrant accents.
+The **Dashboard** must provide air quality monitoring, forecasting, and alerts. It needs to include:
+- **Overview Page**: Current AQI, micro-forecasts, pollutant levels, weather.
+- **Live Map Page**: Interactive map with AQI heat map and markers.
+- **Forecasts Page**: Hourly (72h) and daily (7-14d) predictions with confidence scores.
+- **My Locations**: Manage multiple saved locations.
+- **Alerts Page**: Active alerts, history, and configuration (initially requested to be removed, then reinstated).
+- **Settings Page**: Theme, units, notifications, accessibility.
+- **ML Insights**: An AI-powered section to explain forecasts and provide recommendations.
+Key technical preferences include React 18+, Tailwind CSS, Leaflet for maps, Recharts for charts, and Vite for building. The application should start with comprehensive mock data, but be ready for real API integration. AI-powered features using Emergent LLM Key are required for forecast explanations, natural language search, and personalized recommendations.
+</product_requirements>
+
+<key_technical_concepts>
+- **Frontend**: React 18+, Vite, Tailwind CSS, Leaflet (mapping), Recharts (charting), TanStack Query (data fetching), Zustand (state management).
+- **Backend**: FastAPI, MongoDB (database).
+- **Machine Learning**: LightGBM (prediction models), scikit-learn, joblib.
+- **Tools**: Supervisor (process management), Yarn (package manager).
+- **APIs**: Open-Meteo CAMS Air Quality API, NASA DONKI API.
+- **Design**: Glassmorphism, responsive design, dark theme.
+</key_technical_concepts>
+
+<code_architecture>
+The application follows a standard full-stack architecture with separate  and  directories.
+
+
+
+- ****: Initial FastAPI main application. It was later replaced by  to integrate ML.
+- ****: A new file created to encapsulate the ML model loading and prediction logic extracted from . This centralizes the machine learning functionality for the FastAPI backend.
+- ****: This file replaced  and now contains the FastAPI application with new endpoints to expose the ML models via . It includes logic for fetching real-time data from external APIs (Open-Meteo CAMS, NASA DONKI) and passing it to the ML models for prediction.
+- **, **: These are the binary files containing the pre-trained LightGBM machine learning models for Ozone and PM2.5 forecasting, respectively.
+- ****: The original Python Streamlit application provided by the user. Its ML and data fetching logic were extracted and refactored into  and  for integration into the FastAPI backend.
+- ****: The main React application component. It handles the primary routing using React Router, integrates global providers (like state context), and implements lazy loading for dashboard pages and an ErrorBoundary for robustness.
+- ****: The Vite configuration file, crucial for the frontend build process. It was updated to allow  and other emergent domains to resolve development server requests, fixing a black screen issue.
+- ****: A newly created page component intended to display ML-powered insights and explanations, replacing the 'Alerts' section initially. This is part of the ML integration into the frontend.
+- ****: Replaced  as a more comprehensive Zustand-based global state management solution, consolidating various pieces of application state for better optimization.
+- ****: This file holds constant values, including the  helper function. It was involved in a bug fix where  was incorrectly imported from .
+</code_architecture>
+
+<pending_tasks>
+- **Recreate/Reintegrate Alerts Section**: The user explicitly requested to redo the alert section which was previously removed.
+- **Full ML API Integration into Dashboard**: While ML APIs are ready in the backend, their complete integration and utilization across all relevant frontend dashboard pages is pending.
+- **Dashboard Optimization**: Continue optimizing various dashboard components for performance and user experience, incorporating the newly integrated ML data effectively.
+</pending_tasks>
+
+<current_work>
+The AI engineer is currently in the process of integrating real machine learning models (LightGBM for PM2.5 and O3 forecasting) into the application. The backend has been updated to include a new  module, which loads the pre-trained  and  files. A new FastAPI entry point, , has replaced the original  to expose these ML models via new API endpoints. These new APIs are functional and can provide current and forecast air quality data, including pollutant levels and AQI, powered by the ML models.
+
+On the frontend, initial steps for ML integration involved creating a new page component, , to present these AI-powered insights. The frontend's architecture has been optimized with global state management (), lazy loading for pages, and better error handling.
+
+However, the integration is not yet complete. Specifically, the user initially requested the removal of the 'Alerts' section but subsequently reversed this decision. Therefore, the immediate next step is to re-introduce and rebuild the 'Alerts' section as part of the dashboard, and then ensure the ML-powered APIs are fully consumed across all relevant dashboard pages for a comprehensive, integrated experience.
+</current_work>
+
+<optional_next_step>
+Recreate the 'Alerts' section in the frontend dashboard and then integrate the ML-powered APIs fully across all relevant dashboard components.
+</optional_next_step>
