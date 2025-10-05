@@ -238,15 +238,45 @@ const DashboardSettings = () => {
         </div>
       </Card>
 
+      {/* Current Settings Summary */}
+      <Card className="border-2 border-bright-cyan/30">
+        <div className="flex items-center gap-3 mb-4">
+          <Info className="w-6 h-6 text-bright-cyan" />
+          <h2 className="text-xl font-bold text-white">Current Settings</h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="glass-card p-4">
+            <p className="text-xs text-white/60 mb-1">Theme</p>
+            <p className="text-lg font-bold text-bright-cyan capitalize">{theme}</p>
+          </div>
+          <div className="glass-card p-4">
+            <p className="text-xs text-white/60 mb-1">Units</p>
+            <p className="text-lg font-bold text-bright-cyan capitalize">{units}</p>
+          </div>
+          <div className="glass-card p-4">
+            <p className="text-xs text-white/60 mb-1">Language</p>
+            <p className="text-lg font-bold text-bright-cyan">{language.toUpperCase()}</p>
+          </div>
+          <div className="glass-card p-4">
+            <p className="text-xs text-white/60 mb-1">Notifications</p>
+            <p className="text-lg font-bold text-bright-cyan">
+              {Object.values(notifications).filter(Boolean).length}/{Object.keys(notifications).length}
+            </p>
+          </div>
+        </div>
+      </Card>
+
       {/* About */}
       <Card>
         <h2 className="text-xl font-bold text-white mb-4">About Skyphoria</h2>
         <div className="space-y-2 text-sm text-white/70">
-          <p><strong className="text-white">Version:</strong> 1.0.0</p>
+          <p><strong className="text-white">Version:</strong> 2.0.0 (ML-Powered)</p>
           <p><strong className="text-white">Built for:</strong> NASA Space Apps Challenge 2025</p>
-          <p><strong className="text-white">Data Sources:</strong> NASA TEMPO, OpenAQ, EPA AirNow, Pandora Network</p>
+          <p><strong className="text-white">ML Models:</strong> LightGBM (PM2.5 & O3 Forecasting)</p>
+          <p><strong className="text-white">Data Sources:</strong> NASA CAMS, Open-Meteo, NASA DONKI</p>
+          <p><strong className="text-white">Training Data:</strong> 4 Years (2021-2025)</p>
           <p className="pt-4 border-t border-white/10 text-xs">
-            Made with ❤️ for clean air. Open source and committed to democratizing air quality information.
+            Made with ❤️ for clean air. Powered by AI and committed to democratizing air quality information.
           </p>
         </div>
       </Card>
