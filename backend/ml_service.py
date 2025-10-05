@@ -183,10 +183,12 @@ def aqi_from_no2_ppb(no2_ppb):
 
 # Main prediction function
 def get_air_quality_prediction(lat: float, lon: float, hours: int = 72, hist_hours: int = 72):
-    """Main function to get ML-based air quality predictions"""
+    """Main function to get air quality predictions (ML-based when available, CAMS fallback)"""
     
+    # If ML models not available, use CAMS forecast directly
     if not MODELS_LOADED:
-        return {"error": "ML models not loaded", "success": False}
+        print("Using CAMS forecast (ML models not available)")
+        return get_cams_forecast_fallback(lat, lon, hours)
     
     try:
         HOURLY_VARS = [
