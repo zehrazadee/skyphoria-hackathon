@@ -94,6 +94,15 @@ async def get_current(
         "category": category["name"],
         "categoryColor": category["color"],
         "dominantPollutant": current_data["dominant_pollutant"],
+        "confidence": 0.95,  # Current conditions have high confidence
+        "weather": current_data.get("weather", {
+            "temperature": 20,
+            "windSpeed": 5,
+            "windDirection": 0,
+            "windDirectionText": "N",
+            "humidity": 50,
+            "visibility": 10
+        }),
         "pollutants": {
             "pm25": {
                 "value": round(current_data["pm25"], 1),
