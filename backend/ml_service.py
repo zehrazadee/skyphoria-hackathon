@@ -272,6 +272,64 @@ def get_air_quality_prediction(lat: float, lon: float, hours: int = 72, hist_hou
     except Exception as e:
         return {"error": str(e), "success": False}
 
+def get_cams_forecast_fallback(lat: float, lon: float, hours: int = 72):
+    """Fallback function using CAMS forecast when ML models are not available"""
+    try:
+        now = datetime.now(timezone.utc)
+        
+        # Fetch CAMS air quality forecast
+        aq_fc = fetch_openmeteo_aq_forecast(hours, lat, lon)
+        
+        if aq_fc.empty:
+            return {"error": "No forecast data available", "success": False}
+        
+        # Build forecast from CAMS data
+        forecast = []
+        for idx, row in aq_fc.iterrows():
+            pm25 = row.get("pm2_5", 0)
+            o3_ugm3 = row.get("ozone", 0)
+            o3_ppb = o3_ugm3 * O3_UGM3_TO_PPB
+            no2_ppb = row.get("nitrogen_dioxide", 0) * NO2_UGM3_TO_PPB
+            
+            # Calculate AQI
+            aqi_pm = aqi_from_pm25(pm25)
+            aqi_o3 = aqi_from_o3(o3_ppb)
+            aqi_no2 = aqi_from_no2_ppb(no2_ppb)
+            
+            overall_aqi = max(aqi_pm, aqi_o3, aqi_no2)
+            
+            # Determine dominant pollutant
+            dominant = "PM2.5"
+            if aqi_o3 > aqi_pm and aqi_o3 >= aqi_no2:
+                dominant = "O3"
+            elif aqi_no2 > aqi_pm and aqi_no2 > aqi_o3:
+                dominant = "NO2"
+            
+            forecast.append({
+                "timestamp": idx.isoformat(),
+                "aqi": int(overall_aqi) if not pd.isna(overall_aqi) else 50,
+                "pm25": float(pm25),
+                "o3_ppb": float(o3_ppb),
+                "no2_ppb": float(no2_ppb),
+                "aqi_pm25": int(aqi_pm) if not pd.isna(aqi_pm) else 0,
+                "aqi_o3": int(aqi_o3) if not pd.isna(aqi_o3) else 0,
+                "aqi_no2": int(aqi_no2) if not pd.isna(aqi_no2) else 0,
+            })
+        
+        return {
+            "success": True,
+            "location": {"lat": lat, "lon": lon},
+            "generated_at": now.isoformat(),
+            "current": forecast[0] if forecast else None,
+            "forecast": forecast[:hours],
+            "model_info": {
+                "data_source": "CAMS (Copernicus Atmosphere Monitoring Service)",
+                "note": "Using CAMS forecast data (ML models disabled for deployment)"
+            }
+        }
+    except Exception as e:
+        return {"error": str(e), "success": False}
+
 def get_current_conditions(lat: float, lon: float):
     """Get current air quality and weather using CAMS and Open-Meteo data"""
     try:
