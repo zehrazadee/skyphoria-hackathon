@@ -2,7 +2,8 @@ import React from 'react'
 import { Wind, Droplets, Eye, Thermometer } from 'lucide-react'
 import Card from '../ui/Card'
 import AQIBadge from '../ui/AQIBadge'
-import { getAQICategory, getHealthRecommendation } from '../../utils/helpers'
+import { getAQICategory } from '../../utils/constants'
+import { getHealthRecommendation } from '../../utils/helpers'
 import Loading from '../ui/Loading'
 
 const CurrentConditions = ({ data, isLoading }) => {
