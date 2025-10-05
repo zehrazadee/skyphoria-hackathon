@@ -4,9 +4,11 @@ import Button from '../components/ui/Button'
 import { Moon, Sun, Globe, Thermometer, Bell, Check, Volume2, Info } from 'lucide-react'
 import { useSettingsStore } from '../store/useStore'
 import { showToast } from '../components/ui/Toast'
+import { useTranslation } from '../utils/translations'
 
 const DashboardSettings = () => {
   const { theme, units, language, notifications, setTheme, setUnits, setLanguage, setNotifications } = useSettingsStore()
+  const { t } = useTranslation(language)
 
   // Apply theme to document root
   useEffect(() => {
