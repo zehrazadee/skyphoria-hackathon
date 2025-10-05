@@ -14,21 +14,23 @@ const PollutantLevels = ({ data, isLoading }) => {
       <h2 className="text-xl font-bold text-white mb-6">Pollutant Levels</h2>
       <div className="space-y-4">
         {Object.entries(data.pollutants).map(([key, pollutant]) => {
+          if (!pollutant) return null
+          
           const info = POLLUTANTS[key]
           const trend = getTrendInfo(pollutant.trend)
           const TrendIcon = trend?.icon ? Icons[trend.icon] : null
-          const percentage = (pollutant.aqi / 500) * 100
+          const percentage = ((pollutant.aqi || 0) / 500) * 100
 
           return (
             <div key={key} className="space-y-2">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="font-semibold text-white">{info?.name || key}</span>
-                  <p className="text-xs text-white/50">{info?.fullName}</p>
+                  <span className="font-semibold text-white">{info?.name || key.toUpperCase()}</span>
+                  <p className="text-xs text-white/50">{info?.fullName || ''}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-bold text-white">
-                    {pollutant.value} {pollutant.unit}
+                    {pollutant.value ?? 'N/A'} {pollutant.unit || ''}
                   </span>
                   {TrendIcon && (
                     <div className={`flex items-center gap-1 ${trend.color}`}>
@@ -46,7 +48,7 @@ const PollutantLevels = ({ data, isLoading }) => {
                 />
               </div>
               
-              <p className="text-xs text-white/50">{pollutant.description}</p>
+              <p className="text-xs text-white/50">{pollutant.description || ''}</p>
             </div>
           )
         })}
