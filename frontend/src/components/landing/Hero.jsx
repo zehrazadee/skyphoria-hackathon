@@ -97,7 +97,7 @@ const Hero = ({ onGetStarted }) => {
           <Button 
             variant="secondary" 
             size="lg"
-            onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => window.open('https://youtu.be/Y6A7qXDeTng?si=d89YufT00IMoC-Ka', '_blank')}
           >
             <Play className="mr-2 w-5 h-5" />
             Watch Demo
